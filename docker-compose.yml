@@ -1,0 +1,22 @@
+version: "3.9"
+services: 
+    mysqldb:
+        container_name: mysqldb
+        image: mysql:8
+        environment: 
+            - MYSQL_ROOT_PASSWORD=root2021
+            - MYSQL_DATABASE=security
+        networks: 
+            - security-spring
+    security-spring:
+        container_name: security-spring
+        build: .
+        ports: 
+            - 8089:8080
+        networks: 
+            - security-spring
+        depends_on: 
+            - mysqldb
+networks: 
+    security-spring:
+        name: security-spring
